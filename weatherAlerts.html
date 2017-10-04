@@ -34,6 +34,7 @@
         <script>
             $(document).ready(function() 
             {
+                $("#resultsSection").hide();
                 $( "#cityField" ).keyup(function() 
                 {
                     var url = "http://bioresearch.byu.edu/cs260/jquery/getcity.cgi?q="+$("#cityField").val();
@@ -55,6 +56,7 @@
                 
                 $("#weatherButton").click(function(e)
                 {
+                    $("#resultsSection").show();
                     var state = $("#stateField").val();
                     console.log(state);
                     var city = $("#cityField").val();
