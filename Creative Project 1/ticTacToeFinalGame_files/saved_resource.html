@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<!-- saved from url=(0048)https://fiddle.jshell.net/jaxondk/vg8r2jw5/show/ -->
+<html class="fa-events-icons-ready"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="googlebot" content="noindex, nofollow">
+
+  
+  
+
+  
+  
+  
+
+  
+
+  <script type="text/javascript" src="./dummy.js.download"></script>
+
+  
+
+  
+
+  
+
+  
+    <link rel="stylesheet" type="text/css" href="./result-light.css">
+  
+
+  
+
+  <style type="text/css">
+    table {
+  width: 100px;
+  height: 100px;
+  border-collapse: collapse;
+  position: absolute;
+  top: 130px;
+  left: 100px;
+}
+
+td {
+  width: 33.3333%;
+  height: 33.3333%;
+  border: 2px solid black;
+  text-align: center;
+}
+
+tr:first-of-type td {
+  border-top-color: transparent;
+}
+
+tr:last-of-type td {
+  border-bottom-color: transparent;
+}
+
+td:first-of-type {
+  border-left-color: transparent;
+}
+
+td:last-of-type {
+  border-right-color: transparent;
+}
+
+button {
+  background-color: green;
+  color: white;
+  position: absolute;
+  top: 250px;
+  left: 125px;
+}
+
+.fa-smile-o {
+  color: green;
+}
+
+.fa-frown-o {
+  color: red;
+}
+
+  </style>
+
+  <title>Tic tac toe by jaxondk</title>
+
+  
+    
+
+
+
+
+<script type="text/javascript">//<![CDATA[
+window.onload=function(){
+
+}//]]> 
+
+</script>
+
+  
+<link href="./843f15c100.css" media="all" rel="stylesheet"></head>
+
+<body>
+  <script src="./843f15c100.js.download"></script>
+<script>
+  window.onload = function() { //set all td elements' onclick to the markCell f(x)
+    var cells = document.getElementsByTagName('td');
+    for (var i = 0; i < cells.length; i++) {
+      cells[i].onclick = updateBoard;
+    }
+  }
+
+  var winner;
+  var squaresFilled = 0;
+  var marksArray = ['X', 'O'];
+
+  function isGameOver(cell) {
+    var mark = cell.innerHTML;
+    var winning_patterns = cell.classList; //the cell is grouped with other cells it can with with
+    var pattern;
+    //this loop checks each winning pattern the current cell is a part of to see if the patterns are full
+    for (var i = 0; i < winning_patterns.length; i++) {
+      pattern = document.getElementsByClassName(winning_patterns[i]);
+      if (isPatternMatching(pattern, mark)) {
+        winner = mark;
+        return true;
+      }
+    }
+
+    if (squaresFilled == 9) {
+      return true;
+    } else {
+      return false
+    }
+  }
+
+  function isPatternMatching(p, mark) {
+    var matching = true;
+    for (var i = 0; i < p.length; i++) {
+      if (p[i].innerHTML != mark)
+        matching = false;
+    }
+    return matching;
+  }
+
+  function updateBoard(e) {
+    var cell = event.srcElement;
+    markCell(cell);
+    if (isGameOver(cell)) {
+      if (winner) {
+        changeMarks();
+        document.getElementById("result").innerHTML = "Game Over. Player " + winner + " wins!";
+      } else {
+        document.getElementById("result").innerHTML = "BOOOO! Game Ends in a tie"
+      }
+      
+      //Replay button
+      var button = document.createElement("button");
+      button.innerHTML = "Replay";
+      document.getElementsByTagName("body")[0].appendChild(button);
+      button.addEventListener("click", replay);
+
+    }
+  }
+
+  function changeMarks() {
+    var cells = document.getElementsByTagName('td');
+    for (var i = 0; i < cells.length; i++) {
+      var cell = cells[i];
+      var content = cell.innerHTML;
+      if (content == 'X') {
+        cell.innerHTML = '<i class="fa fa-smile-o" aria-hidden="true"></i>';
+      } else if (content == 'O') {
+        cell.innerHTML = '<i class="fa fa-frown-o" aria-hidden="true"></i>';
+      }
+    }
+  }
+
+  function replay() {
+    //clear result header
+    document.getElementById("result").innerHTML = "";
+    //clear cells
+    var cells = document.getElementsByTagName('td');
+    for (var i = 0; i < cells.length; i++) {
+      cells[i].innerHTML = "";
+    }
+    //restore global variables
+    squaresFilled = 0;
+    winner = undefined;
+    //remove button
+    var replay_btn = document.getElementById("replay");
+    replay_btn.parentNode.removeChild(replay_btn);
+  }
+
+  function markCell(cell) {
+    var mark = marksArray[squaresFilled % 2];
+    if (cell.innerHTML != "")
+      return;
+    cell.innerHTML = mark;
+    squaresFilled++;
+  }
+
+</script>
+
+
+  <h1>Tic Tac Toe</h1>
+  <h3 id="result"></h3>
+  <table id="gameboard">
+    <tbody><tr>
+      <td class="row1 col1 diag-lr"></td>
+      <!-- diag-lr = the diagonal left to right -->
+      <td class="row1 col2"></td>
+      <td class="row1 col3 diag-rl"></td>
+    </tr>
+    <tr>
+      <td class="row2 col1"></td>
+      <td class="row2 col2 diag-lr diag-rl"></td>
+      <td class="row2 col3"></td>
+    </tr>
+    <tr>
+      <td class="row3 col1 diag-rl"></td>
+      <td class="row3 col2"></td>
+      <td class="row3 col3 diag-lr"></td>
+    </tr>
+  </tbody></table>
+
+
+
+  
+  <script>
+  // tell the embed parent frame the height of the content
+  if (window.parent && window.parent.parent){
+    window.parent.parent.postMessage(["resultsFrame", {
+      height: document.body.getBoundingClientRect().height,
+      slug: "vg8r2jw5"
+    }], "*")
+  }
+</script>
+
+
+
+
+
+<button>Replay</button></body></html>

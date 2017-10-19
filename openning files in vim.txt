@@ -1,0 +1,14 @@
+Go to your permision file, then time cmd on the directory
+
+Command line opens
+
+bash
+ssh -i fhtl.pem ubuntu@13.59.17.225
+ls
+cd htdocs
+
+vim hello2.html
+
+Type i to write in the file
+Type :w to save
+Type :wq to save and quit

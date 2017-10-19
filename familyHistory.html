@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+
+<style>
+  body{
+  padding: 60px 0px 15px 80px;
+  background-image: url(owlsEdited2.png);
+  background-size:125%;
+}
+</style>
+<html>
+ <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.6/angular.min.js"></script>
+ <body ng-app="FamHist" ng-controller="famHistCtrl">
+ <form ng-submit="famHistAdd()">
+ <input type="text" ng-model="inputPerson" placeholder="Add Person">
+ <input type="text" ng-model="inputFather" placeholder="Add Father">
+ <input type="text" ng-model="inputMother" placeholder="Add Mother">
+ <input type="submit" value="Add New">
+ </form>
+ <div ng-repeat= "x in famHistList">
+   <input type = "checkbox" ng-model="x.done">
+   {{x.famHistPerson}},{{x.famHistFather}},{{x.famHistMother}}
+ </div>
+ <p>
+ <button ng-click="remove()">Remove Person</button>
+ </p>
+<script>
+ var app=angular.module('FamHist', []);
+ app.controller('famHistCtrl',function($scope){
+ 	$scope.famHistList=[];
+  
+  $scope.famHistAdd=function(){
+    var famObject = {
+		famHistPerson:$scope.inputPerson,
+    famHistFather:$scope.inputFather,
+    famHistMother:$scope.inputMother,
+    done:false
+    };
+   $scope.famHistList.push(famObject);
+  };
+  $scope.remove=function(){
+  var oldList = $scope.famHistList;
+  $scope.famHistList = [];
+  angular.forEach(oldList, function(x){
+      if(!x.done){
+          $scope.famHIstList.push(x);
+      }
+    });
+  };
+ });
+ </script>
+ </body>
+</html>
+

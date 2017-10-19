@@ -1,0 +1,131 @@
+<html>
+    <style>
+        table {
+        width: 100px;
+        height: 100px;
+        border-collapse: collapse;
+        margin: 100px;
+        }
+
+        td {
+        width: 33.3333%;
+        height: 33.3333%;
+        border: 2px solid black;
+        text-align: center;
+        }
+
+        tr:first-of-type td {
+        border-top-color: transparent;
+        }
+
+        tr:last-of-type td {
+        border-bottom-color: transparent;
+        }
+
+        td:first-of-type {
+        border-left-color: transparent;
+        }
+
+        td:last-of-type {
+        border-right-color: transparent;
+        }
+
+        button {
+        background-color: green;
+        color: white;
+        }
+    </style>
+    <script>
+    window.onload = function() { //set all td elements' onclick = markCell f(x)
+        var cells = document.getElementsByTagName('td');
+        for (var i = 0; i < cells.length; i++) {
+        var cell = cells[i];
+        cell.onclick = updateBoard; 
+        }
+    }
+    
+    var squaresFilled = 0;
+    var marksArray = ['X', 'O'];
+    var winner;
+
+    
+    function isGameOver(cell) {
+        var mark = cell.innerHTML;   
+        var winning_patterns = cell.classList; //the cell is grouped with other cells it can with with
+        var pattern;
+        //this loop checks each winning pattern the current cell is a part of to see if the patterns are full
+        for(var i=0; i<winning_patterns.length; i++) {
+        pattern = document.getElementsByClassName(winning_patterns[i]);
+        if(isPatternMatching(pattern, mark)) {
+            winner = mark;
+        document.getElementById("result").innerHTML = "Game Over. Player " + mark + " wins!"; //might not work with images
+        return true;
+        }
+        }
+        
+        if(squaresFilled == 9) {
+    document.getElementById("result").innerHTML = "BOOOO! Game Ends in a tie"
+        return true;
+        }
+        else {
+        return false
+        }
+    }
+
+    function change()
+    {
+        
+    }
+    
+    function isPatternMatching(p, mark) {
+    var matching = true; 
+        for(var i=0; i<p.length; i++) {
+        if(p[i].innerHTML != mark) 
+        matching = false;
+        }
+        return matching;
+    }
+    
+    function updateBoard(e) {
+    var cell = event.srcElement;
+    markCell(cell);
+        if(isGameOver(cell)) {
+        document.getElementById("replay").innerHTML = "Replay";
+        //display button to play again
+        }
+    }
+
+    function markCell(cell) {
+        var mark = marksArray[squaresFilled % 2];
+        if(cell.innerHTML != "")
+        return;
+        cell.innerHTML = mark;
+        squaresFilled++;
+    }
+
+    </script>
+
+    <body>
+    <h1>Tic Tac Toe</h1>
+    <h3 id="result"></h3>
+    <table id="gameboard">
+        <tr>
+        <td class="row1 col1 diag-lr"></td> <!-- diag-lr = the diagonal left to right -->
+        <td class="row1 col2"></td>
+        <td class="row1 col3 diag-rl"></td>
+        </tr>
+        <tr>
+        <td class="row2 col1"></td>
+        <td class="row2 col2 diag-lr diag-rl"></td>
+        <td class="row2 col3"></td>
+        </tr>
+        <tr>
+        <td class="row3 col1 diag-rl"></td>
+        <td class="row3 col2"></td>
+        <td class="row3 col3 diag-lr"></td>
+        </tr>
+    </table>
+    
+    <button type="button" onclick="alert('Hello world!')">Replay</button>
+    </body>
+</html>
