@@ -1,0 +1,29 @@
+body {
+  padding: 50px;
+  font: 18px Arial;
+}
+
+a {
+  color: #00B7FF;
+}
+
+form {
+  padding : 0px 0px 15px 0px;
+}
+
+label{
+  padding : 0px 15px 20px 0px;
+}
+
+.btn{
+  margin-right: 10px;
+  margin-bottom:  30px;
+}
+
+#done{
+  margin-bottom: 10px;
+}
+
+#json{
+  margin-bottom: 5px;
+}

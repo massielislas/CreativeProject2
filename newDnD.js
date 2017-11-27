@@ -26,8 +26,23 @@ angular.module('News', ['ui.router'])
   '$scope',
   'postFactory',
   function($scope, postFactory){
-    $scope.test= 'Hello World';
     $scope.posts = postFactory.posts;
+
+    $scope.monsters = [];
+    
+    $scope.generateEncounter = function() {
+     if($scope.formContent === '') {return;}
+     var difficultySelected = $scope.formDifficulty;
+      var encounterLvl = $scope.formPlayers * $scope.formAvgLvl; 
+        var hardnessIntervalBot = 0;
+        var hardnessIntervalTop = 0;
+        var randomMonster = Math.floor(Math.random() * 300);
+        if (true){};
+
+        console.log($scope.formDifficulty);
+        };
+    
+    $scope.difficulties = ["Easy", "Medium", "Hard"];
 
     $scope.addPost = function(){
       if($scope.formContent === '') { return; }
